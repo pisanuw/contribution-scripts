@@ -9,7 +9,7 @@ import datetime as dt
 import os
 import re
 import statistics
-from typing import List, Sequence
+from typing import List, Optional, Sequence
 
 
 @dataclasses.dataclass
@@ -91,7 +91,7 @@ def analyze_report_file(path: str) -> RepositoryBalance:
     )
 
 
-def render_balance_report(rankings: Sequence[RepositoryBalance], chart_path: str | None = None) -> str:
+def render_balance_report(rankings: Sequence[RepositoryBalance], chart_path: Optional[str] = None) -> str:
     lines = [
         "# Contribution Balance Analysis",
         "",
@@ -117,7 +117,9 @@ def render_balance_report(rankings: Sequence[RepositoryBalance], chart_path: str
     return "\n".join(lines)
 
 
-def maybe_create_chart(rankings: Sequence[RepositoryBalance], chart_output: str | None) -> str | None:
+def maybe_create_chart(
+    rankings: Sequence[RepositoryBalance], chart_output: Optional[str]
+) -> Optional[str]:
     if not chart_output:
         return None
 
