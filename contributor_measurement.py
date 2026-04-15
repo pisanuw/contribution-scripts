@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import dataclasses
 import datetime as dt
+import json
 import os
 import shutil
 import subprocess
@@ -138,8 +139,6 @@ def github_api_get_json(url: str, token: Optional[str] = None) -> object:
     request = urllib.request.Request(url, headers=headers)
     try:
         with urllib.request.urlopen(request) as response:
-            import json
-
             return json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")

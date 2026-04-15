@@ -59,7 +59,7 @@ def parse_repository_name(markdown: str, fallback: str) -> str:
 
 
 def parse_fork_flag(markdown: str) -> str:
-    match = re.search(r"^- Fork: (Yes|No)$", markdown, flags=re.MULTILINE)
+    match = re.search(r"^- Fork: (Yes|No|Unknown)$", markdown, flags=re.MULTILINE)
     return match.group(1) if match else "Unknown"
 
 
@@ -125,7 +125,7 @@ def maybe_create_chart(
 
     try:
         import matplotlib.pyplot as plt  # type: ignore
-    except Exception as exc:  # pragma: no cover
+    except ImportError as exc:  # pragma: no cover
         raise RuntimeError(
             "matplotlib is required for --chart-output. Install it with: pip install matplotlib"
         ) from exc
